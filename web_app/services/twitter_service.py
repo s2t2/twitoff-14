@@ -12,6 +12,14 @@ TWITTER_API_SECRET = os.getenv("TWITTER_API_SECRET")
 TWITTER_ACCESS_TOKEN = os.getenv("TWITTER_ACCESS_TOKEN")
 TWITTER_ACCESS_TOKEN_SECRET = os.getenv("TWITTER_ACCESS_TOKEN_SECRET")
 
+#class TwitterService():
+#    def __init__(self):
+#        self.auth = _________
+#        self.api = _________
+#
+#service = TwitterService()
+#service.api.get_user("_______")
+
 auth = tweepy.OAuthHandler(TWITTER_API_KEY, TWITTER_API_SECRET)
 auth.set_access_token(TWITTER_ACCESS_TOKEN, TWITTER_ACCESS_TOKEN_SECRET)
 print("AUTH", auth)
@@ -20,31 +28,35 @@ api = tweepy.API(auth)
 print("API", api)
 #print(dir(api))
 
-#
-# how to get information about a given twitter user?
-#
+if __name__ == "__main__":
 
-user = api.get_user("s2t2")
-#> <class 'tweepy.models.User'>
+    screen_name = input("Please input a twitter screen name (e.g. s2t2): ")
 
-#pprint(user._json)
-print(user.id)
-print(user.screen_name)
-print(user.friends_count)
-print(user.followers_count)
+    #
+    # how to get information about a given twitter user?
+    #
 
-#
-# how to get tweets from a given twitter user?
-#
+    user = api.get_user(screen_name)
+    #> <class 'tweepy.models.User'>
 
-#statuses = api.user_timeline("s2t2")
-statuses = api.user_timeline("s2t2", tweet_mode="extended", count=150, exclude_replies=True, include_rts=False)
-#status = statuses[0]
-#pprint(dir(status))
-#pprint(status._json)
-#print(status.id)
-#print(status.full_text)
+    #pprint(user._json)
+    print(user.id)
+    print(user.screen_name)
+    print(user.friends_count)
+    print(user.followers_count)
 
-for status in statuses:
-    print("----")
-    print(status.full_text)
+    #
+    # how to get tweets from a given twitter user?
+    #
+
+    #statuses = api.user_timeline("s2t2")
+    statuses = api.user_timeline(screen_name, tweet_mode="extended", count=150, exclude_replies=True, include_rts=False)
+    #status = statuses[0]
+    #pprint(dir(status))
+    #pprint(status._json)
+    #print(status.id)
+    #print(status.full_text)
+
+    for status in statuses:
+        print("----")
+        print(status.full_text)
