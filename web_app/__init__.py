@@ -10,10 +10,14 @@ from web_app.routes.book_routes import book_routes
 DATABASE_URI = "sqlite:////Users/mjr/Desktop/twitoff-14/twitoff_development_14.db" # using absolute filepath on Mac (recommended)
 #DATABASE_URI = "sqlite:///C:\\Users\\Username\\Desktop\\your-repo-name\\web_app_99.db" # using absolute filepath on Windows (recommended) h/t: https://stackoverflow.com/a/19262231/670433
 
+SECRET_KEY = "super secret" # todo: use env var to customize
+
 def create_app():
     app = Flask(__name__)
+    app.config["SECRET_KEY"] = SECRET_KEY
 
     app.config["SQLALCHEMY_DATABASE_URI"] = DATABASE_URI
+    app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
     db.init_app(app)
     migrate.init_app(app, db)
 
