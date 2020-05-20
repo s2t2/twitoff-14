@@ -55,7 +55,7 @@ def predict():
     #result_b = classifier.predict([user_b_tweets[0].embedding])
     #results = classifier.predict([embeddings[0]])[0] #> elon
 
-    example_embedding = basilica_connection.embed_sentence(tweet_text)
+    example_embedding = basilica_connection.embed_sentence(tweet_text, model="twitter")
     result = classifier.predict([example_embedding])
 
     return render_template("prediction_results.html",
